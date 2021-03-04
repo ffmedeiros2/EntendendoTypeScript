@@ -3,14 +3,14 @@ let nome: string = "João";
 console.log(nome);
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'number' is not assignable to type 'string'.ts(2322)
-// nome = 28;
+/* nome = 28; */
 
 
 // NUMBERS
 let idade: number = 27;
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'string' is not assignable to type 'number'.ts(2322)
-// idade = 'Ana';
+/* idade = 'Ana'; */
 //
 // porém number aceita tanto valores inteiros quanto de ponto flutuante
 idade = 27.5;
@@ -21,7 +21,7 @@ console.log(idade);
 let possuiHobbies: boolean = false;
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'number' is not assignable to type 'boolean'.ts(2322)
-// possuiHobbies = 1;
+/* possuiHobbies = 1; */
 console.log(possuiHobbies);
 
 
@@ -41,7 +41,7 @@ console.log(hobbies[0]);
 console.log(typeof hobbies);
 // não declarar explicitamente que um array é do tipo any[]
 // implicará em um erro similar à: Type 'number' is not assignable to type 'string'.ts(2322)
-// hobbies = [100];
+/* hobbies = [100]; */
 // 
 // declarar explicitamente que um array é do tipo any[]
 // permite a declaração abaixo
@@ -50,7 +50,7 @@ idades = ["1"];
 console.log(idades);
 // porém não é possível assinalar um valor que não seja de um vetor (em ambos os casos)
 // implicando no erro: Type 'number' is not assignable to type 'any[]'.ts(2322)
-// idades = 1;
+/* idades = 1; */
 
 
 // TUPLAS
@@ -59,7 +59,7 @@ console.log(endereco);
 // caso se tente atribuir um valor diferente do definido na tupla será lançada
 // uma exceção indicando que há uma incongruência entre o tipo esperado e o tipo
 // recebido, como no exemplo abaixo: Type '[]' is not assignable to type '[string, number]'.
-// endereco = [];
+/* endereco = []; */
 
 
 // ENUMS
@@ -100,7 +100,7 @@ function digaOi(): void {
     console.log('oi');
     // assim como no caso anterior o tipo aqui é explícito: void. Assim, não é possível
     // retornar nenhum valor diferente de vazio
-    // return nome;
+    /* return nome; */
 };
 digaOi();
 //
@@ -108,10 +108,10 @@ digaOi();
 // TSError: ⨯ Unable to compile TypeScript:
 // tipos/tipos.ts(111,21): error TS7006: Parameter 'num1' implicitly has an 'any' type.
 // tipos/tipos.ts(112,27): error TS7006: Parameter 'num2' implicitly has an 'any' type.
-// function multiplica(num1, num2): number {
-//     return num1 * num2;
-// }
-// console.log(multiplica(1, 2));
+/* function multiplica(num1, num2): number {
+    return num1 * num2;
+}
+console.log(multiplica(1, 2)); */
 function multiplica(num1: number, num2: number): number {
     return num1 * num2;
 }
@@ -126,7 +126,7 @@ console.log(typeof teste);
 // outra forma de atribuir funções como tipo é especificando a assinatura do método que será aceito
 let func: (x: number, y: number) => number;
 // a variável pode ser utilizada antes de ser inicializada: Variable 'func' is used before being assigned.
-// console.log(typeof func)
+/* console.log(typeof func) */
 func = multiplica;
 console.log(typeof func);
 
@@ -139,7 +139,7 @@ let usuario: { nome: string, idade: number } = {
 console.log(usuario);
 // é necessário seguir a assinatura do objeto quando for alterá-lo
 // neste caso:  Type '{}' is missing the following properties from type '{ nome: string; idade: number; }': nome, idade
-// usuario = {}
+/* usuario = {} */
 // desde que os atributos do objeto sejam satisfeitos a ordem destes não importa
 usuario = {
     idade: 40,
@@ -200,7 +200,7 @@ nota = '10';
 console.log(`Minha nota é: ${nota}!`);
 // com o uso do union type é possível definir mais de um tipo para uma variável
 // caso tente colocar um tipo diferente como abaixo, ocorrerá um erro tipo: Type 'boolean' is not assignable to type 'string | number'.ts(2322)
-// nota = false
+/* nota = false */
 
 
 // CHECANDO TIPO
@@ -237,7 +237,7 @@ produto.validarProduto();
 // VALORES OPCIONAIS COM TIPO NULL
 let altura = 12;
 // normalmente não é possível atribuir null à uma variável tipada: Type 'null' is not assignable to type 'number'.ts(2322)
-// altura = null;
+/* altura = null; */
 // é possível alterar esse comportamento utilizando union type
 let alturaOpcional: number | null = 20;
 alturaOpcional = null;

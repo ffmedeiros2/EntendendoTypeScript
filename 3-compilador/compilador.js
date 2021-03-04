@@ -7,12 +7,12 @@ console.log("Canal = " + canal);
 // como compilador.ts e tipos.ts estão no mesmo contexto há o erro abaixo
 // tipos/tipos.ts:2:5 - error TS2451: Cannot redeclare block-scoped variable 'nome'.
 // [18:48:08] File change detected. Starting incremental compilation...
-// let nome = 'Pedro';
+/* let nome = 'Pedro'; */
 // o atributo 'noImplicitAny' do arquivo tsconfig é true por padrão
 // assim, haverá um erro no caso abaixo: Parameter 'a' implicitly has an 'any' type.ts(7006)
-// function soma(a, b) {
-//     return a + b
-// }
+/* function soma(a, b) {
+    return a + b
+} */
 // neste caso não erro pois o compilador sabe em todos os instântes qual tipo
 // a variável 'qualquerCoisa' pode assumir number & string logo após, diferente da função anterior
 // onde nunca era possível saber quais valores a e b podem assumir
@@ -22,13 +22,13 @@ qualquerCoisa = 'abc';
 // o atributo 'strictNullChecks' do arquivo tsconfig é true por padrão
 // assim, haverá um erro no caso abaixo: Variable 'saudacao' is used before being assigned.ts(2454)
 // pois a variável pode ser nula no ponto de retorno
-// function saudar(isManha: boolean): string {
-//     let saudacao: string
-//     if (isManha) {
-//         saudacao = 'Bom dia';
-//     }
-//     return saudacao;
-// }
+/* function saudar(isManha: boolean): string {
+    let saudacao: string
+    if (isManha) {
+        saudacao = 'Bom dia';
+    }
+    return saudacao;
+} */
 // o atributo 'noUnusedParameters' do arquivo tsconfig é true por padrão 
 // assim a funcao abaixo não exibe um erro, mesmo nuca utilizando o atributo 'horas'
 function saudar(isManha, horas) {

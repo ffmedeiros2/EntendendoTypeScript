@@ -5,8 +5,8 @@
 // no navegador a var terá valor 'undefined'. Caso seja utilizado o let e o target seja o es5
 // este será compilado para uma var, logo o mesmo comportamento de hoisting ocorrerá
 // o let não permite esse comportamento
-// console.log(hoisting);
-// var hoisting = '?';
+/* console.log(hoisting);
+var hoisting = '?'; */
 //
 // o código equivale à
 var hoisting
@@ -18,17 +18,17 @@ hoisting = '?';
 // no caso abaixo a var acao pode ser acessada no console.log() mesmo que esta tenha sido
 // declarada dentro de um if 
 // o let/const não permitem esse comportamento, estes podem existir em um contexto de bloco ({})
-// let estaFrio = true;
-// if (estaFrio) {
-//     var acao = 'Colocar o casaco';
-// }
-// console.log(acao)
+/* let estaFrio = true;
+if (estaFrio) {
+    var acao = 'Colocar o casaco';
+}
+console.log(acao) */
 //
 // caso o target de compilação seja <= es5 a const abaixo será compilada para um var
 // logo ele funcionará normalmente
-// const cpf: string = '123.456.789.00';
-// cpf = '098.765.432-11';
-// console.log(cpf);
+/* const cpf: string = '123.456.789.00';
+cpf = '098.765.432-11';
+console.log(cpf); */
 //
 // neste caso como existem 2 vars com mesmo nome aquela que pertence ao escopo será a utilizada 
 var segredo = 'externo!';
