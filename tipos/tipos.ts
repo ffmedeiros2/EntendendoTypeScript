@@ -82,8 +82,8 @@ console.log(carro);
 carro = { 
     marca: 'BMW',
     ano: 2019
-}
-console.log(carro)
+};
+console.log(carro);
 
 
 // FUNÇÕES
@@ -92,7 +92,7 @@ function retornaMeuNome(): string {
     // tipo, como no exemplo abaixo: Type 'Cor' is not assignable to type 'string'
     // return minhaCor;
     return nome;
-}
+};
 console.log(retornaMeuNome());
 //
 // também é possível atribuir funções de tipo vazio
@@ -101,8 +101,8 @@ function digaOi(): void {
     // assim como no caso anterior o tipo aqui é explícito: void. Assim, não é possível
     // retornar nenhum valor diferente de vazio
     // return nome;
-}
-digaOi()
+};
+digaOi();
 //
 // ao tentar compilar sem explicitar os parâmetros da função ocorre o erro abaixo
 // TSError: ⨯ Unable to compile TypeScript:
@@ -119,3 +119,185 @@ console.log(multiplica(1, 2));
 
 
 // FUNÇÕES COMO TIPOS
+const teste = function (a: number, b: number): boolean {
+    return a > b;
+}
+console.log(typeof teste);
+// outra forma de atribuir funções como tipo é especificando a assinatura do método que será aceito
+let func: (x: number, y: number) => number;
+// a variável pode ser utilizada antes de ser inicializada: Variable 'func' is used before being assigned.
+// console.log(typeof func)
+func = multiplica;
+console.log(typeof func);
+
+
+// OBJETOS
+let usuario: { nome: string, idade: number } = {
+    nome: 'João',
+    idade: 27
+};
+console.log(usuario);
+// é necessário seguir a assinatura do objeto quando for alterá-lo
+// neste caso:  Type '{}' is missing the following properties from type '{ nome: string; idade: number; }': nome, idade
+// usuario = {}
+// desde que os atributos do objeto sejam satisfeitos a ordem destes não importa
+usuario = {
+    idade: 40,
+    nome: 'Maria'
+};
+console.log(usuario);
+
+
+// DESAFIO 1
+/*
+    Criar um objeto funcionário com:
+        - Array de strings com os nomes dos supervisores (2 ou 3)
+        - Função de bater ponto que recebe a hora (numero) e retorna uma string:
+            -> Ponto normal (<= 8)
+            -> Fora do horário (> 8)
+*/
+
+let funcionario: { 
+    supervisores: string[],
+    baterPonto: (horas: number) => string 
+};
+funcionario = {
+    supervisores: ['João', 'Maria'],
+    baterPonto: function(horas: number) {
+        if (horas <= 8) {
+            return 'Ponto normal';
+        } else {
+            return 'Fora do horário'
+        }
+    }
+};
+console.log(funcionario.supervisores);
+console.log(funcionario.baterPonto(8));
+console.log(funcionario.baterPonto(9));
+
+
+// ALIAS
+type Funcionario = { 
+    supervisores: string[],
+    baterPonto: (horas: number) => string 
+};
+let funcionario2: Funcionario = {
+    supervisores: ['João', 'Maria'],
+    baterPonto: function(horas: number) {
+        if (horas <= 8) {
+            return 'Ponto normal';
+        } else {
+            return 'Fora do horário';
+        }
+    }
+};
+
+
+// UNION TYPES
+let nota: string | number = 10;
+console.log(`Minha nota é: ${nota}!`);
+nota = '10';
+console.log(`Minha nota é: ${nota}!`);
+// com o uso do union type é possível definir mais de um tipo para uma variável
+// caso tente colocar um tipo diferente como abaixo, ocorrerá um erro tipo: Type 'boolean' is not assignable to type 'string | number'.ts(2322)
+// nota = false
+
+
+// CHECANDO TIPO
+let  valor = 30
+if (typeof valor === 'number') {
+    console.log('É um number!');
+} else {
+    console.log(typeof valor);
+}
+
+
+// NEVER
+// a função nuca retorna nenhum valor, nem mesmo void. Pode ser um loop infinito ou ter uma exceção lançada
+function falha(msg: string): never {
+    throw new Error(msg)
+}
+
+const produto = {
+    nome: 'sabão',
+    preco: 8,
+    validarProduto() {
+        if (!this.nome || this.nome.trim().length == 0) {
+            falha('Precisa ter um nome');
+        }
+        if(this.preco <= 0) {
+            falha('Preço inválido!');
+        }
+    }
+};
+
+produto.validarProduto();
+
+
+// VALORES OPCIONAIS COM TIPO NULL
+let altura = 12;
+// normalmente não é possível atribuir null à uma variável tipada: Type 'null' is not assignable to type 'number'.ts(2322)
+// altura = null;
+// é possível alterar esse comportamento utilizando union type
+let alturaOpcional: number | null = 20;
+alturaOpcional = null;
+
+type Contato = {
+    nome: string,
+    tel1: string,
+    tel2: string | null
+}
+
+const contato1: Contato = {
+    nome: 'Fulano',
+    tel1: '999201983',
+    tel2: null
+}
+
+console.log(contato1)
+
+
+// DESAFIO 2
+// Escrever o código abaixo em TS
+/* let contaBancaria = {
+    saldo: 3456,
+    depositar(valor) {
+        this.saldo += valor
+    }
+}
+ 
+let correntista = {
+    nome: 'Ana Silva',
+    contaBancaria: contaBancaria,
+    contatos: ['34567890', '98765432']
+}
+ 
+correntista.contaBancaria.depositar(3000)
+console.log(correntista) */
+
+type ContaBancaria = {
+    saldo: number,
+    depositar: (valor: number) => void
+};
+
+type Correntista = {
+    nome: string,
+    contaBancaria: ContaBancaria,
+    contatos: string[]
+};
+
+let contaBancaria:ContaBancaria = {
+    saldo: 3456,
+    depositar(valor: number) {
+        this.saldo += valor
+    }
+};
+
+let correntista: Correntista = {
+    nome: 'Ana Silva',
+    contaBancaria: contaBancaria,
+    contatos: ['34567890', '98765432']
+};
+
+correntista.contaBancaria.depositar(3000);
+console.log(correntista);
