@@ -78,6 +78,7 @@ function retornaMeuNome() {
     // return minhaCor;
     return nome;
 }
+;
 console.log(retornaMeuNome());
 //
 // também é possível atribuir funções de tipo vazio
@@ -87,6 +88,7 @@ function digaOi() {
     // retornar nenhum valor diferente de vazio
     // return nome;
 }
+;
 digaOi();
 //
 // ao tentar compilar sem explicitar os parâmetros da função ocorre o erro abaixo
@@ -96,9 +98,128 @@ digaOi();
 // function multiplica(num1, num2): number {
 //     return num1 * num2;
 // }
+// console.log(multiplica(1, 2));
 function multiplica(num1, num2) {
     return num1 * num2;
 }
 console.log(multiplica(1, 2));
-//
-// 
+// FUNÇÕES COMO TIPOS
+var teste = function (a, b) {
+    return a > b;
+};
+console.log(typeof teste);
+// outra forma de atribuir funções como tipo é especificando a assinatura do método que será aceito
+var func;
+// a variável pode ser utilizada antes de ser inicializada: Variable 'func' is used before being assigned.
+// console.log(typeof func)
+func = multiplica;
+console.log(typeof func);
+// OBJETOS
+var usuario = {
+    nome: 'João',
+    idade: 27
+};
+console.log(usuario);
+// é necessário seguir a assinatura do objeto quando for alterá-lo
+// neste caso:  Type '{}' is missing the following properties from type '{ nome: string; idade: number; }': nome, idade
+// usuario = {}
+// desde que os atributos do objeto sejam satisfeitos a ordem destes não importa
+usuario = {
+    idade: 40,
+    nome: 'Maria'
+};
+console.log(usuario);
+// DESAFIO 1
+/*
+    Criar um objeto funcionário com:
+        - Array de strings com os nomes dos supervisores (2 ou 3)
+        - Função de bater ponto que recebe a hora (numero) e retorna uma string:
+            -> Ponto normal (<= 8)
+            -> Fora do horário (> 8)
+*/
+var funcionario;
+funcionario = {
+    supervisores: ['João', 'Maria'],
+    baterPonto: function (horas) {
+        if (horas <= 8) {
+            return 'Ponto normal';
+        }
+        else {
+            return 'Fora do horário';
+        }
+    }
+};
+console.log(funcionario.supervisores);
+console.log(funcionario.baterPonto(8));
+console.log(funcionario.baterPonto(9));
+var funcionario2 = {
+    supervisores: ['João', 'Maria'],
+    baterPonto: function (horas) {
+        if (horas <= 8) {
+            return 'Ponto normal';
+        }
+        else {
+            return 'Fora do horário';
+        }
+    }
+};
+// UNION TYPES
+var nota = 10;
+console.log("Minha nota \u00E9: " + nota + "!");
+nota = '10';
+console.log("Minha nota \u00E9: " + nota + "!");
+// com o uso do union type é possível definir mais de um tipo para uma variável
+// caso tente colocar um tipo diferente como abaixo, ocorrerá um erro tipo: Type 'boolean' is not assignable to type 'string | number'.ts(2322)
+// nota = false
+// CHECANDO TIPO
+var valor = 30;
+if (typeof valor === 'number') {
+    console.log('É um number!');
+}
+else {
+    console.log(typeof valor);
+}
+// NEVER
+// a função nuca retorna nenhum valor, nem mesmo void. Pode ser um loop infinito ou ter uma exceção lançada
+function falha(msg) {
+    throw new Error(msg);
+}
+var produto = {
+    nome: 'sabão',
+    preco: 8,
+    validarProduto: function () {
+        if (!this.nome || this.nome.trim().length == 0) {
+            falha('Precisa ter um nome');
+        }
+        if (this.preco <= 0) {
+            falha('Preço inválido!');
+        }
+    }
+};
+produto.validarProduto();
+// VALORES OPCIONAIS COM TIPO NULL
+var altura = 12;
+// normalmente não é possível atribuir null à uma variável tipada: Type 'null' is not assignable to type 'number'.ts(2322)
+// altura = null;
+// é possível alterar esse comportamento utilizando union type
+var alturaOpcional = 20;
+alturaOpcional = null;
+var contato1 = {
+    nome: 'Fulano',
+    tel1: '999201983',
+    tel2: null
+};
+console.log(contato1);
+var contaBancaria = {
+    saldo: 3456,
+    depositar: function (valor) {
+        this.saldo += valor;
+    }
+};
+var correntista = {
+    nome: 'Ana Silva',
+    contaBancaria: contaBancaria,
+    contatos: ['34567890', '98765432']
+};
+correntista.contaBancaria.depositar(3000);
+console.log(correntista);
