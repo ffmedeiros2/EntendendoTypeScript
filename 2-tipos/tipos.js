@@ -1,3 +1,4 @@
+"use strict";
 // STRINGS
 var nome = "João";
 console.log(nome);
@@ -223,3 +224,4 @@ var correntista = {
 };
 correntista.contaBancaria.depositar(3000);
 console.log(correntista);
+//# sourceMappingURL=tipos.js.map
