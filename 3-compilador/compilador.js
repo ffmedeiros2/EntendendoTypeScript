@@ -1,8 +1,8 @@
 "use strict";
-var canal = 'Gaveta';
-var inscritos = 610234;
+let canal = 'Gaveta';
+let inscritos = 610234;
 // canal = inscritos;
-console.log("Canal = " + canal);
+console.log(`Canal = ${canal}`);
 // não pode declarar duas variável com mesmo nome no mesmo escopo
 // como compilador.ts e tipos.ts estão no mesmo contexto há o erro abaixo
 // tipos/tipos.ts:2:5 - error TS2451: Cannot redeclare block-scoped variable 'nome'.
@@ -16,7 +16,7 @@ console.log("Canal = " + canal);
 // neste caso não erro pois o compilador sabe em todos os instântes qual tipo
 // a variável 'qualquerCoisa' pode assumir number & string logo após, diferente da função anterior
 // onde nunca era possível saber quais valores a e b podem assumir
-var qualquerCoisa;
+let qualquerCoisa;
 qualquerCoisa = 12;
 qualquerCoisa = 'abc';
 // o atributo 'strictNullChecks' do arquivo tsconfig é true por padrão
@@ -34,8 +34,8 @@ qualquerCoisa = 'abc';
 function saudar(isManha, horas) {
     // o atributo 'noUnusedLocals' do arquivo tsconfig é true por padrão
     // assim, não há erro mesmo que o atributo 'a' nunca seja utilizado
-    var a = 1;
-    var saudacao;
+    let a = 1;
+    let saudacao;
     if (isManha) {
         saudacao = 'Bom dia';
     }

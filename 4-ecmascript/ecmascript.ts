@@ -248,13 +248,13 @@ esperar2sPromise()
 
 // o método fetch é do objeto window, logo só funciona no browser
 // a resposta do fetch é uma promise
-fetch('https://swapi.dev/api/people/1/')
+/* fetch('https://swapi.dev/api/people/1/')
     .then(res => res.json())
     .then(personagem => personagem.films)
     .then(films => fetch(films[0]))
     .then(resFilm => resFilm.json())
     .then(filme => console.log(filme.title))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err)) */
 
 // links úteis
 // http://kangax.github.io/compat-table/es6/

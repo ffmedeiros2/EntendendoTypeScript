@@ -1,10 +1,5 @@
 "use strict";
 // let & const (existem a partir do es6)
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
-};
 // HOISTING
 // caso uma var seja definida após seu uso ela será "içada" (hoisted) como no caso abaixo
 // no navegador a var terá valor 'undefined'. Caso seja utilizado o let e o target seja o es5
@@ -56,17 +51,17 @@ console.log(subtrair(2, 1)); */
 console.log(somar(2, 2)); */
 //
 // uma arrow function é sempre anônima, sua sintaxe é uma simplificação da declaração implícita vista acima
-var somar = function (n1, n2) { return n1 + n2; };
+const somar = (n1, n2) => n1 + n2;
 console.log(somar(2, 2));
 //
 // caso o corpo da arrow function seja um bloco de código é necessário explicitamente declarar um retorno, caso a função o tenha
-var subtrair = function (n1, n2) {
+const subtrair = (n1, n2) => {
     return n1 - n2;
 };
 console.log(subtrair(2, 1));
 //
 // uma arrow function também pode receber nenhum parâmetro
-var saudacao = function () { return console.log('Olá'); };
+const saudacao = () => console.log('Olá');
 saudacao();
 //
 // caso uma arrow function receba apenas 1 parâmetro é possível escrevê-la sem os parenteses (apenas em JavaScript)
@@ -109,8 +104,7 @@ normalComThisEspecial(); */
 arrowComThis.bind(2);
 arrowComThis(); */
 // PARÂMETRO PADRÃO
-function contagemRegressiva(inicio) {
-    if (inicio === void 0) { inicio = 3; }
+function contagemRegressiva(inicio = 3) {
     while (inicio > 0) {
         console.log(inicio--);
     }
@@ -121,9 +115,7 @@ contagemRegressiva();
 contagemRegressiva(5);
 //
 // também é possível utilizar um parâmetro já declarado como base para calcular o valor padrão de outro parâmetro
-function contagemRegressiva2(inicio, fim) {
-    if (inicio === void 0) { inicio = 3; }
-    if (fim === void 0) { fim = inicio - 5; }
+function contagemRegressiva2(inicio = 3, fim = inicio - 5) {
     while (inicio > fim) {
         console.log(inicio--);
     }
@@ -134,8 +126,8 @@ contagemRegressiva2();
 contagemRegressiva2(5);
 // REST & SPREAD
 // é possível utilizar o operador spread quando se tem um vetor e se deseja utilizá-lo para criar um novo vetor
-var turmaA = ['João', 'Maria', 'Fernanda'];
-var turmaB = __spreadArray(__spreadArray(['Fernando'], turmaA), ['Miguel', 'Lorena']);
+const turmaA = ['João', 'Maria', 'Fernanda'];
+const turmaB = ['Fernando', ...turmaA, 'Miguel', 'Lorena'];
 console.log(turmaB);
 //
 // por outro lado caso tenhamos o caso abaixo, onde desejamos criar um array a partir de parâmetros de entrada
@@ -147,19 +139,15 @@ console.log(retornarArray(1, 2));
 // 
 // no caso acima temos uma quantidade de parâmetros fixa (2), caso desejemos uma quantidade variável é possível utilizar o operador rest
 console.log(retornarArray2(1, 2, 3, 4, 5));
-function retornarArray2() {
-    var args = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i] = arguments[_i];
-    }
+function retornarArray2(...args) {
     return args;
 }
 ;
 //
 // outro uso do operador spread seria quando temos uma função que recebe uma coleção de números como no caso do método Math.max()
 // que possui a assinatura max(...values: number[]), logo ele receberá esta coleção e a concatenará em um array (operador rest)
-var numbers = [1, 10, 99, -5];
-console.log(Math.max.apply(Math, numbers));
+const numbers = [1, 10, 99, -5];
+console.log(Math.max(...numbers));
 // 
 // outro ponto a ser considerado sobre o operador rest é que ele deve ser o último parâmetro em um método
 // no exemplo abaixo temos o erro: A rest parameter must be last in a parameter list.ts(1014
@@ -168,29 +156,25 @@ console.log(Math.max.apply(Math, numbers));
 } */
 //
 // REST & SPREAD (TUPLA)
-var tupla = [1, 'abc', false];
+const tupla = [1, 'abc', false];
 function tuplaParam1(a, b, c) {
-    console.log("1) " + a + " " + b + " " + c);
+    console.log(`1) ${a} ${b} ${c}`);
 }
 ;
-tuplaParam1.apply(void 0, tupla);
-function tuplaParam2() {
-    var params = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        params[_i] = arguments[_i];
-    }
-    console.log("2) " + params[0] + " " + params[1] + " " + params[2]);
+tuplaParam1(...tupla);
+function tuplaParam2(...params) {
+    console.log(`2) ${params[0]} ${params[1]} ${params[2]}`);
 }
 ;
-tuplaParam2.apply(void 0, tupla);
+tuplaParam2(...tupla);
 // DESTRUCTURING (ARRAY)
 // o uso do destructuring facilita o acesso aos atributos de um array
-var caracteristicas = ['Motor Zetec 1.8', 2020];
-var motor = caracteristicas[0], ano = caracteristicas[1];
-console.log("Carro: motor " + motor + ", ano " + ano);
+const caracteristicas = ['Motor Zetec 1.8', 2020];
+const [motor, ano] = caracteristicas;
+console.log(`Carro: motor ${motor}, ano ${ano}`);
 // DESTRUCTURING (OBJETO)
 // também é possível utilizar o destructuring com objetos
-var item = {
+const item = {
     nome: 'SSD 480GB',
     preco: 200,
     caracteristicas: {
@@ -199,15 +183,18 @@ var item = {
 };
 // aqui são utilizados os alias n e p para os atributos nome e preco respectivamente
 // o uso do alias é opcional
-var n = item.nome, p = item.preco, w = item.caracteristicas.w;
-console.log("item: " + n + " - " + p);
-console.log("caracteristicas: " + w);
+const { nome: n, preco: p, caracteristicas: { w } } = item;
+console.log(`item: ${n} - ${p}`);
+console.log(`caracteristicas: ${w}`);
 // TEMPLATE STRING
-var usuarioID = 'SupportCod3r';
-var notificacoes = '19';
+const usuarioID = 'SupportCod3r';
+const notificacoes = '19';
 /* const boasVindas = 'Boas vindas ' + usuarioID +
     ' Notificações: ' + notificacoes; */
-var boasVindas = "\nBoas vindas " + usuarioID + ",\nNotifica\u00E7\u00F5es: " + (parseInt(notificacoes) > 9 ? '+9' : notificacoes) + "\n";
+const boasVindas = `
+Boas vindas ${usuarioID},
+Notificações: ${parseInt(notificacoes) > 9 ? '+9' : notificacoes}
+`;
 console.log(boasVindas);
 // CALLBACK
 // supunha o cenário abaixo, onde após 3s um evento ocorre
@@ -247,13 +234,13 @@ esperar2sPromise()
     .then(dado => console.log(dado)); */
 // o método fetch é do objeto window, logo só funciona no browser
 // a resposta do fetch é uma promise
-fetch('https://swapi.dev/api/people/1/')
-    .then(function (res) { return res.json(); })
-    .then(function (personagem) { return personagem.films; })
-    .then(function (films) { return fetch(films[0]); })
-    .then(function (resFilm) { return resFilm.json(); })
-    .then(function (filme) { return console.log(filme.title); })
-    .catch(function (err) { return console.log(err); });
+/* fetch('https://swapi.dev/api/people/1/')
+    .then(res => res.json())
+    .then(personagem => personagem.films)
+    .then(films => fetch(films[0]))
+    .then(resFilm => resFilm.json())
+    .then(filme => console.log(filme.title))
+    .catch(err => console.log(err)) */
 // links úteis
 // http://kangax.github.io/compat-table/es6/
 // https://swapi.dev/

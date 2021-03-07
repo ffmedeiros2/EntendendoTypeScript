@@ -1,12 +1,12 @@
 "use strict";
 // STRINGS
-var nome = "João";
+let nome = "João";
 console.log(nome);
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'number' is not assignable to type 'string'.ts(2322)
 /* nome = 28; */
 // NUMBERS
-var idade = 27;
+let idade = 27;
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'string' is not assignable to type 'number'.ts(2322)
 /* idade = 'Ana'; */
@@ -15,7 +15,7 @@ var idade = 27;
 idade = 27.5;
 console.log(idade);
 // BOOLEAN
-var possuiHobbies = false;
+let possuiHobbies = false;
 // tipos são inferidos no momento da inicialização, então a atribuição
 // abaixo apresentará o erro: Type 'number' is not assignable to type 'boolean'.ts(2322)
 /* possuiHobbies = 1; */
@@ -23,13 +23,13 @@ console.log(possuiHobbies);
 // TIPOS EXPLÍCITOS
 // caso não seja explicitado o tipo, nem seja atribuído valor na inicialização
 // temos que a variável receberá o tipo any
-var minhaIdade;
+let minhaIdade;
 minhaIdade = 26;
 console.log(typeof minhaIdade);
 minhaIdade = 'idade é 26';
 console.log(typeof minhaIdade);
 // ARRAY
-var hobbies = ["Cozinhar", "Praticar Esportes"];
+let hobbies = ["Cozinhar", "Praticar Esportes"];
 console.log(hobbies[0]);
 console.log(typeof hobbies);
 // não declarar explicitamente que um array é do tipo any[]
@@ -38,14 +38,14 @@ console.log(typeof hobbies);
 // 
 // declarar explicitamente que um array é do tipo any[]
 // permite a declaração abaixo
-var idades = [11, 23, 49];
+let idades = [11, 23, 49];
 idades = ["1"];
 console.log(idades);
 // porém não é possível assinalar um valor que não seja de um vetor (em ambos os casos)
 // implicando no erro: Type 'number' is not assignable to type 'any[]'.ts(2322)
 /* idades = 1; */
 // TUPLAS
-var endereco = ["Rua A", 1];
+let endereco = ["Rua A", 1];
 console.log(endereco);
 // caso se tente atribuir um valor diferente do definido na tupla será lançada
 // uma exceção indicando que há uma incongruência entre o tipo esperado e o tipo
@@ -61,11 +61,11 @@ var Cor;
     Cor[Cor["Verde"] = 100] = "Verde";
     Cor["Azul"] = "Azul"; // Azul
 })(Cor || (Cor = {}));
-var minhaCor = Cor.Azul;
+let minhaCor = Cor.Azul;
 console.log(minhaCor);
 // ANY
 // funciona como uma variável no javascript
-var carro = 'BMW';
+let carro = 'BMW';
 console.log(carro);
 carro = {
     marca: 'BMW',
@@ -105,18 +105,18 @@ function multiplica(num1, num2) {
 }
 console.log(multiplica(1, 2));
 // FUNÇÕES COMO TIPOS
-var teste = function (a, b) {
+const teste = function (a, b) {
     return a > b;
 };
 console.log(typeof teste);
 // outra forma de atribuir funções como tipo é especificando a assinatura do método que será aceito
-var func;
+let func;
 // a variável pode ser utilizada antes de ser inicializada: Variable 'func' is used before being assigned.
 /* console.log(typeof func) */
 func = multiplica;
 console.log(typeof func);
 // OBJETOS
-var usuario = {
+let usuario = {
     nome: 'João',
     idade: 27
 };
@@ -138,7 +138,7 @@ console.log(usuario);
             -> Ponto normal (<= 8)
             -> Fora do horário (> 8)
 */
-var funcionario;
+let funcionario;
 funcionario = {
     supervisores: ['João', 'Maria'],
     baterPonto: function (horas) {
@@ -153,7 +153,7 @@ funcionario = {
 console.log(funcionario.supervisores);
 console.log(funcionario.baterPonto(8));
 console.log(funcionario.baterPonto(9));
-var funcionario2 = {
+let funcionario2 = {
     supervisores: ['João', 'Maria'],
     baterPonto: function (horas) {
         if (horas <= 8) {
@@ -165,15 +165,15 @@ var funcionario2 = {
     }
 };
 // UNION TYPES
-var nota = 10;
-console.log("Minha nota \u00E9: " + nota + "!");
+let nota = 10;
+console.log(`Minha nota é: ${nota}!`);
 nota = '10';
-console.log("Minha nota \u00E9: " + nota + "!");
+console.log(`Minha nota é: ${nota}!`);
 // com o uso do union type é possível definir mais de um tipo para uma variável
 // caso tente colocar um tipo diferente como abaixo, ocorrerá um erro tipo: Type 'boolean' is not assignable to type 'string | number'.ts(2322)
 /* nota = false */
 // CHECANDO TIPO
-var valor = 30;
+let valor = 30;
 if (typeof valor === 'number') {
     console.log('É um number!');
 }
@@ -185,10 +185,10 @@ else {
 function falha(msg) {
     throw new Error(msg);
 }
-var produto = {
+const produto = {
     nome: 'sabão',
     preco: 8,
-    validarProduto: function () {
+    validarProduto() {
         if (!this.nome || this.nome.trim().length == 0) {
             falha('Precisa ter um nome');
         }
@@ -199,25 +199,25 @@ var produto = {
 };
 produto.validarProduto();
 // VALORES OPCIONAIS COM TIPO NULL
-var altura = 12;
+let altura = 12;
 // normalmente não é possível atribuir null à uma variável tipada: Type 'null' is not assignable to type 'number'.ts(2322)
 /* altura = null; */
 // é possível alterar esse comportamento utilizando union type
-var alturaOpcional = 20;
+let alturaOpcional = 20;
 alturaOpcional = null;
-var contato1 = {
+const contato1 = {
     nome: 'Fulano',
     tel1: '999201983',
     tel2: null
 };
 console.log(contato1);
-var contaBancaria = {
+let contaBancaria = {
     saldo: 3456,
-    depositar: function (valor) {
+    depositar(valor) {
         this.saldo += valor;
     }
 };
-var correntista = {
+let correntista = {
     nome: 'Ana Silva',
     contaBancaria: contaBancaria,
     contatos: ['34567890', '98765432']
