@@ -8,6 +8,7 @@
 </head>
 <body>
 <body>
+    <script src="node_modules/systemjs/dist/system.js"
     <script src="1-introducao/basico.js"></script>
     <script src="2-tipos/tipos.js"></script>
     <script src="3-compilador/compilador.js"></script>
@@ -18,5 +19,18 @@
     <script src="6-namespaces/geometriaCirc.js"></script>
     <script src="6-namespaces/geometriaRect.js"></script>
     <script src="6-namespaces/namespaces.js"></script>
+    <!-- <script src="7-modulos/modulos.js"></script> -->
+    <script>
+        SystemJS.config({
+            baseUrl: '/7-modulos',
+            packages: {
+                '/7-modulos': {
+                    defaultJSExtension: true
+                }
+            }
+        })
+
+        SystemJS.import('./7-modulos/modulos.js')
+    </script>
 </body>
 </html>
