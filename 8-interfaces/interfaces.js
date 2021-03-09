@@ -82,4 +82,6 @@ const cli = {
     }
 };
 cli.log();
+// links úteis
+// https://www.typescriptlang.org/docs/handbook/interfaces.html
 //# sourceMappingURL=interfaces.js.map
